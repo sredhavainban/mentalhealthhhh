@@ -1,0 +1,122 @@
+[
+  {
+    "text": "I'm feeling extremely anxious and can't stop worrying about everything",
+    "stress_level": "high"
+  },
+  {
+    "text": "I'm so depressed and hopeless, I don't know how to go on",
+    "stress_level": "high"
+  },
+  {
+    "text": "I'm having panic attacks and can't breathe properly",
+    "stress_level": "high"
+  },
+  {
+    "text": "I'm so angry and frustrated with everything in my life",
+    "stress_level": "high"
+  },
+  {
+    "text": "I'm terrified of what might happen tomorrow",
+    "stress_level": "high"
+  },
+  {
+    "text": "I feel completely overwhelmed and can't handle anything",
+    "stress_level": "high"
+  },
+  {
+    "text": "I'm so sad and lonely, I just want to cry all the time",
+    "stress_level": "high"
+  },
+  {
+    "text": "I'm having suicidal thoughts and don't know what to do",
+    "stress_level": "high"
+  },
+  {
+    "text": "I'm so stressed about work that I can't sleep",
+    "stress_level": "high"
+  },
+  {
+    "text": "I'm feeling desperate and don't know where to turn",
+    "stress_level": "high"
+  },
+  {
+    "text": "I'm a bit worried about my upcoming presentation",
+    "stress_level": "medium"
+  },
+  {
+    "text": "I'm feeling somewhat stressed about my relationship",
+    "stress_level": "medium"
+  },
+  {
+    "text": "I'm concerned about my health but trying to stay positive",
+    "stress_level": "medium"
+  },
+  {
+    "text": "I'm a little nervous about the interview tomorrow",
+    "stress_level": "medium"
+  },
+  {
+    "text": "I'm feeling moderately anxious about the future",
+    "stress_level": "medium"
+  },
+  {
+    "text": "I'm somewhat bothered by recent events",
+    "stress_level": "medium"
+  },
+  {
+    "text": "I'm feeling a bit uneasy about my financial situation",
+    "stress_level": "medium"
+  },
+  {
+    "text": "I'm moderately concerned about my family's health",
+    "stress_level": "medium"
+  },
+  {
+    "text": "I'm feeling a bit tense about upcoming changes",
+    "stress_level": "medium"
+  },
+  {
+    "text": "I'm somewhat worried but trying to stay calm",
+    "stress_level": "medium"
+  },
+  {
+    "text": "I'm feeling quite happy and content today",
+    "stress_level": "low"
+  },
+  {
+    "text": "I'm in a good mood and enjoying my day",
+    "stress_level": "low"
+  },
+  {
+    "text": "I'm feeling calm and relaxed",
+    "stress_level": "low"
+  },
+  {
+    "text": "I'm content with how things are going",
+    "stress_level": "low"
+  },
+  {
+    "text": "I'm feeling peaceful and at ease",
+    "stress_level": "low"
+  },
+  {
+    "text": "I'm in a positive mood and looking forward to the day",
+    "stress_level": "low"
+  },
+  {
+    "text": "I'm feeling grateful and thankful",
+    "stress_level": "low"
+  },
+  {
+    "text": "I'm feeling joyful and excited about life",
+    "stress_level": "low"
+  },
+  {
+    "text": "I'm feeling satisfied with my current situation",
+    "stress_level": "low"
+  },
+  {
+    "text": "I'm feeling optimistic about the future",
+    "stress_level": "low"
+  }
+]

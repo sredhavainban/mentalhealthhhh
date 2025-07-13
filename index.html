@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mental Health Companion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #7f9cf5 0%, #a7bfff 100%);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    .main-wrapper {
+      max-width: 900px;
+      margin: 24px auto;
+      padding: 16px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .header {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px 32px 16px 32px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .header-icon {
+      font-size: 2.2em;
+      color: #6c63ff;
+      margin-bottom: 4px;
+    }
+    .header-title {
+      font-size: 2.1em;
+      font-weight: 700;
+      color: #222;
+      margin: 0;
+    }
+    .header-subtitle {
+      color: #7a7a7a;
+      font-size: 1.1em;
+      margin-bottom: 0;
+    }
+    .content-row {
+      display: flex;
+      gap: 24px;
+    }
+    .chat-section {
+      flex: 2;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      padding: 0 0 0 0;
+      min-width: 0;
+    }
+    .chat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px 0 24px;
+    }
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      color: #4f8cff;
+    }
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      background: #4f8cff;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .stress-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stress-label {
+      color: #888;
+      font-size: 0.98em;
+    }
+    .stress-track {
+      width: 90px;
+      height: 8px;
+      background: #e6eaff;
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 0 6px;
+    }
+    .stress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #4f8cff 60%, #a7bfff 100%);
+      border-radius: 6px;
+      transition: width 0.3s;
+    }
+    .stress-percent {
+      color: #888;
+      font-size: 0.98em;
+      min-width: 24px;
+      text-align: right;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 16px 24px 0 24px;
+      overflow-y: auto;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .message {
+      background: #f4f6fa;
+      border-radius: 10px;
+      padding: 14px 18px;
+      color: #333;
+      font-size: 1.08em;
+      max-width: 90%;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+      align-self: flex-start;
+      position: relative;
+    }
+    .message-time {
+      font-size: 0.85em;
+      color: #aaa;
+      margin-top: 4px;
+    }
+    .chat-input-area {
+      padding: 16px 24px 12px 24px;
+      border-top: 1px solid #f0f0f0;
+      background: #fff;
+      border-radius: 0 0 14px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .input-row {
+      display: flex;
+      gap: 10px;
+    }
+    .chat-input {
+      flex: 1;
+      border: 1px solid #e0e0e0;
+      border-radius: 22px;
+      padding: 10px 18px;
+      font-size: 1em;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .chat-input:focus {
+      border: 1.5px solid #4f8cff;
+    }
+    .send-btn {
+      background: #6c63ff;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3em;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .send-btn:hover {
+      background: #4f8cff;
+    }
+    .tag-list {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
+    .tag-btn {
+      background: #f4f6fa;
+      color: #4f8cff;
+      border: none;
+      border-radius: 16px;
+      padding: 6px 16px;
+      font-size: 0.98em;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .tag-btn:hover {
+      background: #e6eaff;
+      color: #357ae8;
+    }
+    .sidebar {
+      flex: 1;
+      min-width: 260px;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      padding: 24px 18px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      height: fit-content;
+    }
+    .sidebar-title {
+      font-size: 1.2em;
+      font-weight: 600;
+      color: #4f8cff;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .sidebar-title .icon {
+      font-size: 1.1em;
+    }
+    .resource-card {
+      background: #f9fbfd;
+      border-radius: 8px;
+      margin-bottom: 0;
+      padding: 14px 14px 12px 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .resource-card h3 {
+      margin: 0 0 2px 0;
+      font-size: 1.08em;
+      color: #333;
+    }
+    .resource-desc {
+      color: #7a7a7a;
+      font-size: 0.97em;
+      margin-bottom: 6px;
+    }
+    .resource-btn {
+      background: #7f9cf5;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 18px;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 4px;
+      align-self: flex-start;
+      transition: background 0.2s;
+    }
+    .resource-btn:hover {
+      background: #4f8cff;
+    }
+    .breathing-step {
+      font-size: 1.1em;
+      font-weight: 500;
+      color: #4f8cff;
+      margin: 12px 0 8px 0;
+      min-height: 2.2em;
+      transition: color 0.3s;
+      text-align: center;
+    }
+    .progress-bar-container {
+      width: 100%;
+      max-width: 220px;
+      height: 14px;
+      background: #e6eaff;
+      border-radius: 8px;
+      margin: 0 auto 10px auto;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #4f8cff 60%, #a7bfff 100%);
+      border-radius: 8px;
+      transition: width 0.3s;
+    }
+    .modal-action-btn {
+      background: #4f8cff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 22px;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .modal-action-btn:hover {
+      background: #357ae8;
+    }
+    .grounding-step {
+      font-size: 1.1em;
+      font-weight: 500;
+      color: #4f8cff;
+      margin: 12px 0 8px 0;
+      min-height: 2.2em;
+      transition: color 0.3s;
+      text-align: center;
+    }
+    .affirmation-text {
+      font-size: 1.1em;
+      font-weight: 500;
+      color: #4f8cff;
+      margin: 12px 0 8px 0;
+      min-height: 2.2em;
+      text-align: center;
+    }
+    @media (max-width: 900px) {
+      .main-wrapper { max-width: 99vw; }
+      .content-row { flex-direction: column; }
+      .sidebar { min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+    <div class="header">
+      <div class="header-icon">💙</div>
+      <div class="header-title">Mental Health Companion</div>
+      <div class="header-subtitle">Your AI therapy companion for emotional support</div>
+    </div>
+    <div class="content-row">
+      <div class="chat-section">
+        <div class="chat-header">
+          <div class="status"><span class="status-dot"></span> Ready to listen</div>
+          <div class="stress-bar">
+            <span class="stress-label">Stress Level:</span>
+            <span class="stress-track"><span class="stress-fill" id="stress-fill"></span></span>
+            <span class="stress-percent" id="stress-percent">0%</span>
+          </div>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+          
+        </div>
+        <div class="chat-input-area">
+          <div class="input-row">
+            <input class="chat-input" id="chat-input" type="text" placeholder="Share your thoughts, feelings, or concerns..." />
+            <button class="send-btn" id="send-btn" title="Send"><span>&#9658;</span></button>
+          </div>
+          <div class="tag-list">
+            <button class="tag-btn">Anxiety</button>
+            <button class="tag-btn">Sadness</button>
+            <button class="tag-btn">Work Stress</button>
+            <button class="tag-btn">Breathing</button>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="sidebar-title"><span class="icon">💡</span>Resources</div>
+        <div class="resource-card" id="breathing-card">
+          <h3>Breathing Exercise</h3>
+          <div class="resource-desc">4-7-8 breathing technique for relaxation</div>
+          <div id="breathing-exercise" style="display:none;">
+            <div id="breathing-step" class="breathing-step">Ready?</div>
+            <div class="progress-bar-container">
+              <div id="breathing-progress" class="progress-bar"></div>
+            </div>
+            <button id="start-breathing" class="modal-action-btn">Start</button>
+          </div>
+          <button class="resource-btn" id="breathing-btn">Try Now</button>
+        </div>
+        <div class="resource-card" id="grounding-card">
+          <h3>Grounding Technique</h3>
+          <div class="resource-desc">5-4-3-2-1 sensory grounding exercise</div>
+          <div id="grounding-exercise" style="display:none;">
+            <div id="grounding-step" class="grounding-step">Ready?</div>
+            <div class="progress-bar-container">
+              <div id="grounding-progress" class="progress-bar"></div>
+            </div>
+            <button id="next-grounding" class="modal-action-btn">Start</button>
+          </div>
+          <button class="resource-btn" id="grounding-btn">Try Now</button>
+        </div>
+        <div class="resource-card" id="affirmations-card">
+          <h3>Positive Affirmations</h3>
+          <div class="resource-desc">Daily affirmations for mental wellness</div>
+          <div id="affirmations-exercise" style="display:none;">
+            <div id="affirmation-text" class="affirmation-text">You are strong. You are capable. You can handle this.</div>
+            <button id="next-affirmation" class="modal-action-btn">Show Another</button>
+          </div>
+          <button class="resource-btn" id="affirmations-btn">View</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Resource buttons
+    document.getElementById('affirmations-btn').addEventListener('click', function() {
+      alert('You are strong. You are capable. You can handle this.');
+    });
+
+    // Chat functionality
+    const chatInput = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('send-btn');
+    const chatMessages = document.getElementById('chat-messages');
+    const tagBtns = document.querySelectorAll('.tag-btn');
+    const stressFill = document.getElementById('stress-fill');
+    const stressPercent = document.getElementById('stress-percent');
+
+    function addMessage(text) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'message';
+      msgDiv.innerHTML = `${text}<div class='message-time'>Just now</div>`;
+      chatMessages.appendChild(msgDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    sendBtn.addEventListener('click', function() {
+      const val = chatInput.value.trim();
+      if (val) {
+        addMessage(val);
+        chatInput.value = '';
+        updateStress(val);
+      }
+    });
+    chatInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        sendBtn.click();
+      }
+    });
+    tagBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        chatInput.value = btn.textContent;
+        chatInput.focus();
+      });
+    });
+    // Simple stress level simulation based on keywords
+    function updateStress(text) {
+      let level = 0;
+      const lower = text.toLowerCase();
+      if (lower.includes('anxiety') || lower.includes('stress')) level = 60;
+      if (lower.includes('sadness') || lower.includes('sad')) level = 40;
+      if (lower.includes('work')) level = 30;
+      if (lower.includes('breathing')) level = 10;
+      stressFill.style.width = level + '%';
+      stressPercent.textContent = level + '%';
+    }
+
+    // Breathing exercise embedded in card
+    const breathingBtn = document.getElementById('breathing-btn');
+    const breathingExercise = document.getElementById('breathing-exercise');
+    const breathingStep = document.getElementById('breathing-step');
+    const breathingProgress = document.getElementById('breathing-progress');
+    const startBreathingBtn = document.getElementById('start-breathing');
+    let breathingTimeouts = [];
+
+    function showBreathingExercise() {
+      breathingExercise.style.display = 'block';
+      breathingBtn.style.display = 'none';
+      breathingStep.textContent = 'Ready?';
+      breathingProgress.style.width = '0%';
+      startBreathingBtn.style.display = 'inline-block';
+    }
+    function resetBreathingExercise() {
+      breathingStep.textContent = 'Ready?';
+      breathingProgress.style.width = '0%';
+      startBreathingBtn.style.display = 'inline-block';
+      breathingTimeouts.forEach(t => clearTimeout(t));
+      breathingTimeouts = [];
+    }
+    breathingBtn.addEventListener('click', showBreathingExercise);
+    startBreathingBtn.addEventListener('click', function() {
+      startBreathingBtn.style.display = 'none';
+      // Step 1: Breathe in (4s)
+      breathingStep.textContent = 'Breathe in...';
+      breathingProgress.style.transition = 'width 4s linear';
+      breathingProgress.style.width = '33%';
+      breathingTimeouts.push(setTimeout(() => {
+        // Step 2: Hold (7s)
+        breathingStep.textContent = 'Hold your breath...';
+        breathingProgress.style.transition = 'width 7s linear';
+        breathingProgress.style.width = '66%';
+        breathingTimeouts.push(setTimeout(() => {
+          // Step 3: Exhale (8s)
+          breathingStep.textContent = 'Exhale slowly...';
+          breathingProgress.style.transition = 'width 8s linear';
+          breathingProgress.style.width = '100%';
+          breathingTimeouts.push(setTimeout(() => {
+            breathingStep.textContent = 'Well done! Want to try again?';
+            breathingProgress.style.transition = 'width 0.5s';
+            breathingProgress.style.width = '0%';
+            startBreathingBtn.style.display = 'inline-block';
+          }, 8000));
+        }, 7000));
+      }, 4000));
+    });
+
+    // Grounding Technique embedded in card (with progress bar)
+    const groundingBtn = document.getElementById('grounding-btn');
+    const groundingExercise = document.getElementById('grounding-exercise');
+    const groundingStep = document.getElementById('grounding-step');
+    const nextGroundingBtn = document.getElementById('next-grounding');
+    const groundingProgress = document.getElementById('grounding-progress');
+    let groundingStage = 0;
+    const groundingPrompts = [
+      'Name 5 things you can see.',
+      'Name 4 things you can touch.',
+      'Name 3 things you can hear.',
+      'Name 2 things you can smell.',
+      'Name 1 thing you can taste.'
+    ];
+    function showGroundingExercise() {
+      groundingExercise.style.display = 'block';
+      groundingBtn.style.display = 'none';
+      groundingStage = 0;
+      groundingStep.textContent = 'Ready?';
+      nextGroundingBtn.textContent = 'Start';
+      groundingProgress.style.width = '0%';
+    }
+    groundingBtn.addEventListener('click', showGroundingExercise);
+    nextGroundingBtn.addEventListener('click', function() {
+      if (groundingStage < groundingPrompts.length) {
+        groundingStep.textContent = groundingPrompts[groundingStage];
+        nextGroundingBtn.textContent = groundingStage === groundingPrompts.length - 1 ? 'Finish' : 'Next';
+        groundingProgress.style.transition = 'width 0.5s';
+        groundingProgress.style.width = ((groundingStage + 1) / groundingPrompts.length * 100) + '%';
+        groundingStage++;
+      } else {
+        groundingStep.textContent = 'Well done! You have completed the grounding exercise.';
+        nextGroundingBtn.textContent = 'Restart';
+        groundingProgress.style.transition = 'width 0.5s';
+        groundingProgress.style.width = '0%';
+        groundingStage = 0;
+      }
+    });
+
+    // Positive Affirmations embedded in card
+    const affirmationsBtn = document.getElementById('affirmations-btn');
+    const affirmationsExercise = document.getElementById('affirmations-exercise');
+    const affirmationText = document.getElementById('affirmation-text');
+    const nextAffirmationBtn = document.getElementById('next-affirmation');
+    const affirmationsList = [
+      'You are strong. You are capable. You can handle this.',
+      'You are worthy of love and respect.',
+      'Every day is a new beginning.',
+      'You are not alone in how you feel.',
+      'You have the power to create change.',
+      'Your feelings are valid.',
+      'You are doing your best, and that is enough.'
+    ];
+    let affirmationIndex = 0;
+    function showAffirmationsExercise() {
+      affirmationsExercise.style.display = 'block';
+      affirmationsBtn.style.display = 'none';
+      affirmationIndex = 0;
+      affirmationText.textContent = affirmationsList[affirmationIndex];
+    }
+    affirmationsBtn.addEventListener('click', showAffirmationsExercise);
+    nextAffirmationBtn.addEventListener('click', function() {
+      affirmationIndex = (affirmationIndex + 1) % affirmationsList.length;
+      affirmationText.textContent = affirmationsList[affirmationIndex];
+    });
+
+    async function getPrediction(userMessage) {
+      const response = await fetch('http://localhost:5000/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMessage })
+      });
+      const data = await response.json();
+      return data.result;
+    }
+
+    // Usage in your chat send handler:
+    const result = await getPrediction(userInput);
+    addMessage('ML Model says: ' + result);
+  </script>
+</body>
+</html>

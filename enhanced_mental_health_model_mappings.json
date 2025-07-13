@@ -1,0 +1,19 @@
+{
+  "emotion_mapping": {
+    "0": "sadness",
+    "1": "joy",
+    "2": "love",
+    "3": "anger",
+    "4": "fear",
+    "5": "surprise"
+  },
+  "stress_mapping": {
+    "sadness": "high",
+    "anger": "high",
+    "fear": "high",
+    "joy": "low",
+    "love": "low",
+    "surprise": "medium"
+  },
+  "local_dataset_path": "C:/Users/Sre Dhava Inban/OneDrive/Desktop/mental health/dataset"
+}
